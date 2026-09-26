@@ -8,7 +8,8 @@ A real-time, two-side scoreboard built with Next.js, Supabase, and Vercel.
 - The scoreboard displays one single-use QR invitation for each side.
 - Each phone sees the complete score but can change only its own side.
 - A typed amount can be added or subtracted. **Undo** reverses that side's most recent entry.
-- Starting a new round resets both scores while keeping the phone controllers connected.
+- The host can start a **Rematch**, which resets both scores to 0, keeps the team names, and keeps the phone controllers connected.
+- **New game** returns to the home screen to set up a fresh scoreboard.
 - Multiple games are isolated by unique game codes and capability tokens.
 
 ## Local development
