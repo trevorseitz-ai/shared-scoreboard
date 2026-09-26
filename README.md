@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shared Scoreboard
 
-## Getting Started
+A real-time, two-side scoreboard built with Next.js, Supabase, and Vercel.
 
-First, run the development server:
+## How it works
+
+- The host creates a game and keeps the main scoreboard open.
+- The scoreboard displays one single-use QR invitation for each side.
+- Each phone sees the complete score but can change only its own side.
+- A typed amount can be added or subtracted. **Undo** reverses that side's most recent entry.
+- Starting a new round resets both scores while keeping the phone controllers connected.
+- Multiple games are isolated by unique game codes and capability tokens.
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Without Supabase environment variables, development uses an in-memory preview store. This is for local testing only and resets when the server restarts.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For a persistent setup, copy `.env.example` to `.env.local`, fill in a Supabase project URL and publishable key, and apply the migration in `supabase/migrations`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Security model
 
-## Learn More
+Database tables have row-level security enabled and are not directly available to public clients. Narrow database functions expose only the operations the app needs:
 
-To learn more about Next.js, take a look at the following resources:
+- a public game code reads visible scoreboard state;
+- a long controller token authorizes changes for one side only;
+- a separate host token authorizes new rounds and controller replacement;
+- controller links are single-claim, and replacement invalidates the previous phone.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Only the Supabase publishable key is used by the deployment. No database administrator key is stored in Vercel or sent to a browser.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Checks
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm lint
+pnpm build
+```
