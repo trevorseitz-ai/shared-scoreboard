@@ -255,6 +255,17 @@ export function ScoreboardView({ code }: { code: string }) {
         className="controller-dock"
         aria-label="Scoring controls and player controller links"
       >
+        <div className="dock-actions">
+          {secrets ? (
+            <button className="round-button" type="button" onClick={() => setConfirmingRound(true)} disabled={busy}>
+              <RotateCcw size={17} /> Rematch
+            </button>
+          ) : null}
+          <Link className="round-button new-game-button" href="/">
+            <Plus size={17} /> New game
+          </Link>
+        </div>
+
         {secrets ? (
           <div className="device-mode-bar">
             <div>
@@ -301,16 +312,6 @@ export function ScoreboardView({ code }: { code: string }) {
                     ? "Tap a side on this device, then scan the other side on the second device."
                     : "Keep this scoreboard visible while each side scans its own code."}
             </p>
-          </div>
-          <div className="dock-actions">
-            {secrets ? (
-              <button className="round-button" type="button" onClick={() => setConfirmingRound(true)} disabled={busy}>
-                <RotateCcw size={17} /> Rematch
-              </button>
-            ) : null}
-            <Link className="round-button new-game-button" href="/">
-              <Plus size={17} /> New game
-            </Link>
           </div>
         </div>
 

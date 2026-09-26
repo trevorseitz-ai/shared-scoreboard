@@ -583,7 +583,7 @@ button:disabled { cursor: not-allowed; opacity: 0.58; }
 
 .round-button:hover:not(:disabled) { background: #222936; border-color: #555e6e; }
 
-.dock-actions { display: flex; flex: none; gap: 10px; }
+.dock-actions { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px; }
 
 .new-game-button { background: transparent; }
 .new-game-button:hover { background: #222936; border-color: #555e6e; }
@@ -1021,7 +1021,7 @@ button:disabled { cursor: not-allowed; opacity: 0.58; }
   .device-mode-bar { display: grid; gap: 13px; }
   .device-mode-switch { width: 100%; }
   .dock-heading > div > p:last-child { max-width: 240px; }
-  .round-button { width: 45px; min-height: 45px; padding: 0; font-size: 0; }
+  .dock-actions { justify-content: center; flex-wrap: wrap; }
   .qr-card-top { display: grid; }
   .claim-state { width: fit-content; }
   .qr-body { grid-template-columns: 1fr; justify-items: center; text-align: center; }
