@@ -200,6 +200,8 @@ button:disabled { cursor: not-allowed; opacity: 0.58; }
 .setup-step strong { font-size: 14px; }
 .setup-step small { color: var(--muted); font-size: 12px; }
 
+.jump-to-form-button { display: none; }
+
 .setup-card {
   padding: 33px;
   background: var(--white);
@@ -964,6 +966,25 @@ button:disabled { cursor: not-allowed; opacity: 0.58; }
   .setup-workspace { grid-template-columns: 1fr; gap: 44px; padding-top: 54px; }
   .setup-intro { text-align: center; }
   .setup-lede, .setup-steps { margin-right: auto; margin-left: auto; }
+
+  /* The jump button sits at the bottom of the intro; a full viewport height
+     of margin before the card guarantees the card starts below the fold on
+     load, and that scrolling the card to the top of the viewport carries the
+     button (above it) fully out of view. */
+  .jump-to-form-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 52px;
+    margin-top: 32px;
+    padding: 0 24px;
+    color: var(--white);
+    background: var(--ink);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .setup-card { margin-top: 100vh; }
   .score-pair:not(.is-compact) { grid-template-columns: minmax(0, 1fr) 45px minmax(0, 1fr); min-height: 430px; }
   .score-pair:not(.is-compact) .score-side { padding: 25px 20px; }
   .score-pair:not(.is-compact) .score-number { font-size: clamp(94px, 25vw, 180px); }

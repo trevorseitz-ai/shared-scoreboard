@@ -1,8 +1,8 @@
 "use client";
 
-import { type FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, LoaderCircle, Radio, UsersRound } from "lucide-react";
+import { ArrowDown, ArrowRight, LoaderCircle, Radio, UsersRound } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
 import { apiRequest } from "@/lib/client-api";
 import {
@@ -44,6 +44,11 @@ export function CreateScoreboard() {
     useState<DeviceCount>(DEFAULT_DEVICE_COUNT);
   const [error, setError] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
+  const newGameFormRef = useRef<HTMLFormElement>(null);
+
+  function scrollToNewGame() {
+    newGameFormRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   async function createWithNames(
     firstName: string,
@@ -183,9 +188,13 @@ export function CreateScoreboard() {
               <div><strong>Play and score</strong><small>Every screen stays in sync</small></div>
             </div>
           </div>
+
+          <button type="button" className="jump-to-form-button" onClick={scrollToNewGame}>
+            New game <ArrowDown size={18} />
+          </button>
         </div>
 
-        <form className="setup-card" onSubmit={handleSubmit}>
+        <form className="setup-card" ref={newGameFormRef} onSubmit={handleSubmit}>
           <div className="setup-card-heading">
             <span className="setup-card-icon"><UsersRound size={22} /></span>
             <div>
