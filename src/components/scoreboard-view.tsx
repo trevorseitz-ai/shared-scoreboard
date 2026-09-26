@@ -8,6 +8,7 @@ import {
   Copy,
   ExternalLink,
   LoaderCircle,
+  Plus,
   QrCode,
   RotateCcw,
   Unplug,
@@ -163,7 +164,7 @@ export function ScoreboardView({ code }: { code: string }) {
       setGame(result.game);
       announceLocalUpdate(result.game);
       setConfirmingRound(false);
-      setNotice(`Round ${result.game.roundNumber} is ready.`);
+      setNotice(`Rematch started — round ${result.game.roundNumber} is ready.`);
     } catch (requestError) {
       setNotice(requestError instanceof Error ? requestError.message : "The round could not be reset.");
     } finally {
@@ -301,11 +302,16 @@ export function ScoreboardView({ code }: { code: string }) {
                     : "Keep this scoreboard visible while each side scans its own code."}
             </p>
           </div>
-          {secrets ? (
-            <button className="round-button" type="button" onClick={() => setConfirmingRound(true)} disabled={busy}>
-              <RotateCcw size={17} /> New round
-            </button>
-          ) : null}
+          <div className="dock-actions">
+            {secrets ? (
+              <button className="round-button" type="button" onClick={() => setConfirmingRound(true)} disabled={busy}>
+                <RotateCcw size={17} /> Rematch
+              </button>
+            ) : null}
+            <Link className="round-button new-game-button" href="/">
+              <Plus size={17} /> New game
+            </Link>
+          </div>
         </div>
 
         {notice ? <p className="dock-notice" role="status">{notice}</p> : null}
@@ -324,12 +330,12 @@ export function ScoreboardView({ code }: { code: string }) {
         <div className="dialog-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setConfirmingRound(false)}>
           <section className="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="new-round-title">
             <span className="dialog-icon"><RotateCcw size={23} /></span>
-            <h2 id="new-round-title">Start a new round?</h2>
-            <p>Both scores will return to zero. Any phone controllers will stay connected.</p>
+            <h2 id="new-round-title">Start a rematch?</h2>
+            <p>Both scores will return to zero. Team names and any phone controllers will stay connected.</p>
             <div className="dialog-actions">
               <button className="secondary-button" type="button" onClick={() => setConfirmingRound(false)} disabled={busy}>Cancel</button>
               <button className="primary-button" type="button" onClick={startNewRound} disabled={busy}>
-                {busy ? <LoaderCircle className="spin" size={18} /> : <RotateCcw size={18} />} Start round {game.roundNumber + 1}
+                {busy ? <LoaderCircle className="spin" size={18} /> : <RotateCcw size={18} />} Start rematch
               </button>
             </div>
           </section>

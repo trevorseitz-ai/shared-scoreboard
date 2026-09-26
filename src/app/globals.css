@@ -581,6 +581,11 @@ button:disabled { cursor: not-allowed; opacity: 0.58; }
 
 .round-button:hover:not(:disabled) { background: #222936; border-color: #555e6e; }
 
+.dock-actions { display: flex; flex: none; gap: 10px; }
+
+.new-game-button { background: transparent; }
+.new-game-button:hover { background: #222936; border-color: #555e6e; }
+
 .dock-notice {
   margin: -8px 0 20px;
   padding: 10px 12px;
